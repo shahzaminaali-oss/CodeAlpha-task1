@@ -18,7 +18,7 @@ useEffect(() => {
  <BrowserRouter>
       <Routes>
         <Route path="/" element={<Form card={card} setCard={setCard} />} />
-        <Route path="/fcard" element={<Flashcard card={card} />} />
+        <Route path="/fcard" element={<Flashcard card={card} setCard={setCard}/>} />
       </Routes>
     </BrowserRouter>
 
