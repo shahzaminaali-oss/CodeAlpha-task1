@@ -3,6 +3,9 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Flashcard from './component/Flashcard'
 import Form from './component/Form'
+import Home from './component/Home';
+import Addcard from './component/Addcard';
+
 
 function App() {
    
@@ -17,8 +20,10 @@ useEffect(() => {
    <>
  <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Form card={card} setCard={setCard} />} />
+        <Route path='/' element={<Home  />} />
+        <Route path="/start" element={<Form card={card} setCard={setCard} />} />
         <Route path="/fcard" element={<Flashcard card={card} setCard={setCard}/>} />
+        
       </Routes>
     </BrowserRouter>
 

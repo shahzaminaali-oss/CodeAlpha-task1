@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {useForm} from "react-hook-form"
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 const Flashcard = ({card,setCard}) => {
    const {register,handleSubmit,setValue,formState:{errors}}=useForm()
   const capitalizeSentences = (text) => {
@@ -25,6 +26,9 @@ const [editAnswer, setEditAnswer] = useState("")
   }
 
   const handleDelete=()=>{
+    const confirmDelete = window.confirm("Are you sure you want to delete this card?");
+
+  if (!confirmDelete) return;
     const updateCard=card.filter((_,i)=>i!=index)
     setCard(updateCard)
     if(index>0)
@@ -51,21 +55,23 @@ const [editAnswer, setEditAnswer] = useState("")
     }
 
       setCard(updateCard)
+      alert("Card updated successfully");
         setIsEditing(false)
       
     
   }
   if (card.length === 0) {
-  return <h2 className="text-center mt-10">No Flashcards Available</h2>
+  return <h2 className="text-center my-64 text-3xl text-gray-600">No Flashcards Available</h2>
 }
   return (
 
-  isEditing ? 
+  isEditing ?  
   (
     <>
-    <form className='flex flex-col gap-5 pb-8 mt-12  shadow-xl w-[1200px]' onSubmit={handleSubmit(onSubmit)}>
+     <h1 className='pb-2 text-gray-600 w-64 ml-120 mt-14 font-bold text-2xl border-b-2 border-blue-800'>UPDATE CARDS</h1>
+    <form className='flex flex-col gap-5 justify-center items-center pb-2 mt-12 rounded-xl  border-t-2 border-l-2 border-blue-600 shadow-2xl mx-12 ' onSubmit={handleSubmit(onSubmit)}>
           <input 
-          className='px-3 py-6 font-bold border border-blue-600 mx-6 my-3 focus:outline-none'
+          className='px-6 py-6 mt-12 font-bold w-180 border-b-2 border-b-blue-600 mx-6 my-3 focus:outline-none'
         type="text" 
         placeholder='Enter Question'
         {...register("editQuestion",{required:true})}
@@ -78,10 +84,10 @@ const [editAnswer, setEditAnswer] = useState("")
   <p style={{ color: "red" }}>Question is required</p>
  )} */}
         <input 
-         className='px-3 py-6 border border-blue-600 mx-6 mb-3 focus:outline-none'
+         className='px-6 py-6 mt-12 font-bold w-180 border-b-2 border-b-blue-600 mx-6 my-3 focus:outline-none'
         type="text" 
         placeholder='Enter Answer'
-        {...register("answer",{required:true})}
+        {...register("editAnswer",{required:true})}
          onChange={(e) =>
     setValue("editAnswer", capitalizeSentences(e.target.value))
   }
@@ -89,40 +95,51 @@ const [editAnswer, setEditAnswer] = useState("")
         {/* {errors.answer && (
   <p style={{ color: "red" }}>Answer is required</p>
 )} */}
-        <button type="submit"  className='cursor-pointer w-32 p-4 ml-128 text-white bg-blue-900'>Save Card</button>
+         <button type="submit"  className='cursor-pointer w-32 p-4 mr-30 mb-6 mt-4 text-gray-100 bg-gradient-to-br from-[#021261] via-[#3277d1] to-yellow-600 rounded'>Update Card</button>
       </form>
-    </>): (
+    </>)
+    : (
 
     <>
-    <h1 className='pb-2 w-24 ml-60 font-bold text-2xl border-b-2 border-blue-800'>FLASHCARDS</h1>
-    <div className=' flex gap-6 justify-center  mt-6 w-[1200px]'>
-      <button onClick={handlePre} disabled={index==0} className='cursor-pointer shadow-xl p-5 h-12 mt-60 rounded-2xl bg-blue-100'><FaArrowLeft /></button>
+    <div className='flex justify-around '>
+       <h1 className='pb-2 mt-8 w-24  font-bold text-gray-600 text-2xl border-b-2 border-blue-800'>FLASHCARDS</h1>
+       <div>
+<Link to='/'><button className='bg-gradient-to-br from-[#021261] via-[#3277d1] to-yellow-600 p-4 text-lg mt-6 text-gray-200 rounded cursor-pointer'>Home</button></Link>
+<Link to='/start'><button className='bg-gradient-to-br from-[#021261] via-[#3277d1] to-yellow-600 p-4 text-lg mt-6 text-gray-200 rounded cursor-pointer ml-4'>Add Your Cards</button></Link>
+       </div>
+      
+    
+    </div>
+
+   
+    <div className=' flex gap-6 justify-center  mt-6 '>
+      <button onClick={handlePre} disabled={index==0} className='cursor-pointer p-5 h-12 mt-60'><FaArrowLeft /></button>
       <div className='relative rounded-2xl h-128 w-2/3 shadow-2xl pl-12'>
-        <h1 className='w-128 ml-6 mt-24  border-b-2 border-blue-900 text-left p-6 text-blue-800 font-bold text-2xl'>{card[index].question}</h1>
+        <h1 className='w-128 ml-6 mt-12  border-b-2 border-blue-900 text-left p-6 text-blue-800 font-bold text-2xl'>{card[index].question}</h1>
         <p className='h-auto mt-2 p-6 text-blue-800 w-128 text-left ml-6 '>{card[index].answer}</p>
        
         <div className='flex'>
-          <div className='mt-38 ml-6'>
-           <button onClick={handleDelete} className='bg-blue-900 px-6 py-3 mr-3 cursor-pointer'>Delete</button>
-           <button onClick={handleEdit} className='bg-blue-900 px-6 py-3 ml-3 cursor-pointer'>Edit</button>
+          <div className='mt-38 ml-6 '>
+           <button onClick={handleDelete} className='bg-gradient-to-br from-[#021261] via-[#3277d1] to-yellow-600 p-4 w-24 text-lg mt-6 text-gray-200 rounded cursor-pointer'>Delete</button>
+           <button onClick={handleEdit} className='bg-gradient-to-br from-[#021261] via-[#3277d1] to-yellow-600 p-4 w-24 text-lg mt-6 text-gray-200 rounded ml-4 cursor-pointer'>Update</button>
            </div>
          <span className="absolute top-64 left-172 flex items-center justify-center 
-  h-12 w-12 bg-blue-800 rounded-full text-blue-800">
-    1
+  h-12 w-12 bg-gradient-to-br from-[#021261]  to-yellow-600 rounded-full">
+    
   </span>
        <span className="absolute top-76 left-160 flex items-center justify-center 
-  h-18 w-18 bg-blue-800 rounded-full text-blue-800">
-    1
+  h-18 w-18 bg-gradient-to-br from-[#021261]  to-yellow-600 rounded-full ">
+    
   </span>
 
   {/* Second Circle (Bottom Right) */}
-  <span className="absolute bottom-12 right-32 flex items-center justify-center 
-  h-24 w-24 bg-blue-800 rounded-full text-blue-800">
-    2
+  <span className="absolute bottom-10 right-58 flex items-center justify-center 
+  h-24 w-24  rounded-full bg-gradient-to-br from-[#021261]  to-yellow-600">
+    
   </span>
   </div>
       </div>
-        <button onClick={handleNext} disabled={index==card.length-1} className='cursor-pointer shadow-xl p-5 h-12 mt-60 rounded-2xl bg-blue-100'> <FaArrowRight /></button>
+        <button onClick={handleNext} disabled={index==card.length-1} className='cursor-pointer  p-5 h-12 mt-60'> <FaArrowRight /></button>
          
     </div>
     </>
