@@ -15,7 +15,7 @@ const Flashcard = ({card,setCard}) => {
   const [isEditing, setIsEditing] = useState(false)
 const [editQuestion, setEditQuestion] = useState("")
 const [editAnswer, setEditAnswer] = useState("")
-
+const [showAnswer,setshowAnser]=useState(false)
   const handlePre=()=>{
     if(index>0)
       setIndex(index-1)
@@ -62,6 +62,10 @@ const [editAnswer, setEditAnswer] = useState("")
   }
   if (card.length === 0) {
   return <h2 className="text-center my-64 text-3xl text-gray-600">No Flashcards Available</h2>
+}
+
+const handleOpen=()=>{
+  setshowAnser(!showAnswer)
 }
   return (
 
@@ -116,11 +120,20 @@ const [editAnswer, setEditAnswer] = useState("")
       <button onClick={handlePre} disabled={index==0} className='cursor-pointer p-5 h-12 mt-60'><FaArrowLeft /></button>
       <div className='relative rounded-2xl h-128 w-2/3 shadow-2xl pl-12'>
         <h1 className='w-128 ml-6 mt-12  border-b-2 border-blue-900 text-left p-6 text-blue-800 font-bold text-2xl'>{card[index].question}</h1>
-        <p className='h-auto mt-2 p-6 text-blue-800 w-128 text-left ml-6 '>{card[index].answer}</p>
-       
+        {
+          showAnswer &&(
+ <p className='h-auto mt-2 p-6 text-blue-800 w-128 mb-0 text-left ml-6 '>{card[index].answer}</p> 
+          )
+
+        }
+        
+     
         <div className='flex'>
-          <div className='mt-38 ml-6 '>
-           <button onClick={handleDelete} className='bg-gradient-to-br from-[#021261] via-[#3277d1] to-yellow-600 p-4 w-24 text-lg mt-6 text-gray-200 rounded cursor-pointer'>Delete</button>
+          <div className='absolute bottom-6 left-16 top-94'>
+              <button onClick={handleOpen} className='bg-gradient-to-br from-[#021261] via-[#3277d1] to-yellow-600 p-4 w-36 ml-2 mt-6 text-lg text-gray-200 rounded cursor-pointer'>{
+                  showAnswer?"Hide Answer":"Show Answer"
+}</button>
+           <button onClick={handleDelete} className='bg-gradient-to-br from-[#021261] via-[#3277d1] to-yellow-600 p-4  ml-4 w-24 text-lg mt-6 text-gray-200 rounded cursor-pointer'>Delete</button>
            <button onClick={handleEdit} className='bg-gradient-to-br from-[#021261] via-[#3277d1] to-yellow-600 p-4 w-24 text-lg mt-6 text-gray-200 rounded ml-4 cursor-pointer'>Update</button>
            </div>
          <span className="absolute top-64 left-172 flex items-center justify-center 
