@@ -33,7 +33,7 @@ const onError = () => {
             }
 
             setCard([...card,newCard])
-            alert("Form successfully submitted")
+            alert("Card successfully Added")
             reset(defaultValues)
       }
          

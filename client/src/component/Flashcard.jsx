@@ -72,7 +72,18 @@ const handleOpen=()=>{
   isEditing ?  
   (
     <>
-     <h1 className='pb-2 text-gray-600 w-64 ml-120 mt-14 font-bold text-2xl border-b-2 border-blue-800'>UPDATE CARDS</h1>
+    <div className='flex justify-around '>
+       <h1 className='pb-2 mt-8 w-64  font-bold text-gray-600 text-2xl border-b-2 border-blue-800'>UPDATE FLASHCARDS</h1>
+       <div>
+<Link to='/'><button className='bg-gradient-to-br from-[#021261] via-[#3277d1] to-yellow-600 p-4 text-lg mt-6 text-gray-200 rounded cursor-pointer'>Home</button></Link>
+<Link to='/start'><button className='bg-gradient-to-br from-[#021261] via-[#3277d1] to-yellow-600 p-4 text-lg mt-6 text-gray-200 rounded cursor-pointer ml-4'>Add Your Cards</button></Link>
+<Link to='/fcard'><button className='bg-gradient-to-br from-[#021261] via-[#3277d1] to-yellow-600 p-4 text-lg mt-6 text-gray-200 rounded cursor-pointer ml-4'>View Card</button></Link>
+       </div>
+      
+    
+    </div>
+     
+     
     <form className='flex flex-col gap-5 justify-center items-center pb-2 mt-12 rounded-xl  border-t-2 border-l-2 border-blue-600 shadow-2xl mx-12 ' onSubmit={handleSubmit(onSubmit)}>
           <input 
           className='px-6 py-6 mt-12 font-bold w-180 border-b-2 border-b-blue-600 mx-6 my-3 focus:outline-none'
