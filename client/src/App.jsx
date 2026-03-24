@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Flashcard from './component/Flashcard'
 import Form from './component/Form'
 import Home from './component/Home';
-import Addcard from './component/Addcard';
+// import Addcard from './component/Addcard';
 
 
 function App() {
